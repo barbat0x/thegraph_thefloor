@@ -72,3 +72,9 @@ type VaultCreated @entity(immutable: true) {
   blockTimestamp: BigInt!
   transactionHash: Bytes!
 }
+
+type VaultNFT @entity {
+  id: ID!
+  vault: Bytes!
+  tokenId: BigInt!
+}
