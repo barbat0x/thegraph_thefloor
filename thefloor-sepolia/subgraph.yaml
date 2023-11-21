@@ -1,0 +1,62 @@
+specVersion: 0.0.5
+description: "Subgraph for tracking Vaults created by the Factory and events of a specific Vault"
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: Factory
+    network: sepolia
+    source:
+      address: "0xBE3f908a6E1cE2983b8e98bFa29bF170f083E7F9"
+      abi: Factory
+      startBlock: 4738728
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - VaultCreated
+      abis:
+        - name: Factory
+          file: ./abis/Factory.json
+      eventHandlers:
+        - event: VaultCreated(address,address)
+          handler: handleVaultCreated
+      file: ./src/factory.ts
+templates:
+  - kind: ethereum/contract
+    name: VaultTemplate
+    network: sepolia
+    source:
+      abi: Vault
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - Deposit
+        - DepositBatch
+        - Initialized
+        - Swap
+        - TokenCreated
+        - Withdraw
+        - WithdrawBatch
+      abis:
+        - name: Vault
+          file: ./abis/Vault.json
+      eventHandlers:
+        - event: Deposit(indexed address,indexed uint256,uint256)
+          handler: handleDeposit
+        - event: DepositBatch(indexed address,uint256[],uint256[])
+          handler: handleDepositBatch
+        - event: Initialized(uint8)
+          handler: handleInitialized
+        - event: Swap(indexed address,indexed uint256,indexed uint256)
+          handler: handleSwap
+        - event: TokenCreated(indexed address,indexed uint256)
+          handler: handleTokenCreated
+        - event: Withdraw(indexed address,indexed uint256,uint256)
+          handler: handleWithdraw
+        - event: WithdrawBatch(indexed address,uint256[],uint256[])
+          handler: handleWithdrawBatch
+      file: ./src/vault.ts
