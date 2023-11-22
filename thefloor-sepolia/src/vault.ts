@@ -17,9 +17,9 @@ import {
   WithdrawBatch,
 } from "../generated/schema"
 
-import { VaultNFT } from "../generated/schema"
+import { VaultCreated, VaultNFT } from "../generated/schema"
 
-import { store } from "@graphprotocol/graph-ts"
+import { Bytes, store } from "@graphprotocol/graph-ts"
 
 export function handleInitialized(event: InitializedEvent): void {
   let entity = new Initialized(
@@ -35,54 +35,39 @@ export function handleInitialized(event: InitializedEvent): void {
 }
 
 export function handleDeposit(event: DepositEvent): void {
+  let vaultId = event.address.toHex()
+
   let nftId = event.params.id.toString()
-  let nft = VaultNFT.load(nftId)
-
-  if (nft == null) {
-    nft = new VaultNFT(nftId)
-    nft.tokenId = event.params.id
-  }
-
-  nft.vault = event.address
-  nft.save()
+  let vaultNft = new VaultNFT(nftId)
+  vaultNft.tokenId = event.params.id
+  vaultNft.vault = vaultId // Assurez-vous que le champ 'vault' dans VaultNFT accepte un ID sous forme de chaîne
+  vaultNft.save()
 }
 
 export function handleDepositBatch(event: DepositBatchEvent): void {
+  let vaultId = event.address.toHex()
+
   for (let i = 0; i < event.params.ids.length; i++) {
     let nftId = event.params.ids[i].toString()
-    let nft = VaultNFT.load(nftId)
-
-    if (nft == null) {
-      nft = new VaultNFT(nftId)
-      nft.tokenId = event.params.ids[i]
-      nft.vault = event.address
-    }
-
-    nft.save()
+    let vaultNft = new VaultNFT(nftId)
+    vaultNft.tokenId = event.params.ids[i]
+    vaultNft.vault = vaultId
+    vaultNft.save()
   }
 }
 
 export function handleSwap(event: SwapEvent): void {
-  // Traitement du VaultNFT envoyé au Vault (fromId)
+  let vaultId = event.address.toHex()
+  // Traitement du NFT sortant
   let fromNftId = event.params.fromId.toString()
-  let fromNft = VaultNFT.load(fromNftId)
+  store.remove("VaultNFT", fromNftId)
 
-  if (fromNft == null) {
-    fromNft = new VaultNFT(fromNftId)
-    fromNft.tokenId = event.params.fromId
-    // Initialiser d'autres champs pertinents ici
-  }
-
-  fromNft.vault = event.address // L'adresse du Vault
-  fromNft.save()
-
-  // Traitement du VaultNFT retiré du Vault (toId)
+  // Traitement du NFT entrant
   let toNftId = event.params.toId.toString()
-  let toNft = VaultNFT.load(toNftId)
-
-  if (toNft != null) {
-    store.remove("VaultNFT", toNftId)
-  }
+  let toVaultNft = new VaultNFT(toNftId)
+  toVaultNft.tokenId = event.params.toId
+  toVaultNft.vault = vaultId
+  toVaultNft.save()
 }
 
 export function handleTokenCreated(event: TokenCreatedEvent): void {
@@ -101,16 +86,14 @@ export function handleTokenCreated(event: TokenCreatedEvent): void {
 
 export function handleWithdraw(event: WithdrawEvent): void {
   let nftId = event.params.id.toString()
-  let nft = VaultNFT.load(nftId)
 
-  if (nft != null) {
-    store.remove("VaultNFT", nftId)
-  }
+  store.remove("VaultNFT", nftId)
 }
 
 export function handleWithdrawBatch(event: WithdrawBatchEvent): void {
   for (let i = 0; i < event.params.ids.length; i++) {
     let nftId = event.params.ids[i].toString()
+
     store.remove("VaultNFT", nftId)
   }
 }

@@ -821,9 +821,9 @@ export class WithdrawBatch extends Entity {
 }
 
 export class VaultCreated extends Entity {
-  constructor(id: Bytes) {
+  constructor(id: string) {
     super();
-    this.set("id", Value.fromBytes(id));
+    this.set("id", Value.fromString(id));
   }
 
   save(): void {
@@ -831,36 +831,34 @@ export class VaultCreated extends Entity {
     assert(id != null, "Cannot save VaultCreated entity without an ID");
     if (id) {
       assert(
-        id.kind == ValueKind.BYTES,
-        `Entities of type VaultCreated must have an ID of type Bytes but the id '${id.displayData()}' is of type ${id.displayKind()}`
+        id.kind == ValueKind.STRING,
+        `Entities of type VaultCreated must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
       );
-      store.set("VaultCreated", id.toBytes().toHexString(), this);
+      store.set("VaultCreated", id.toString(), this);
     }
   }
 
-  static loadInBlock(id: Bytes): VaultCreated | null {
+  static loadInBlock(id: string): VaultCreated | null {
     return changetype<VaultCreated | null>(
-      store.get_in_block("VaultCreated", id.toHexString())
+      store.get_in_block("VaultCreated", id)
     );
   }
 
-  static load(id: Bytes): VaultCreated | null {
-    return changetype<VaultCreated | null>(
-      store.get("VaultCreated", id.toHexString())
-    );
+  static load(id: string): VaultCreated | null {
+    return changetype<VaultCreated | null>(store.get("VaultCreated", id));
   }
 
-  get id(): Bytes {
+  get id(): string {
     let value = this.get("id");
     if (!value || value.kind == ValueKind.NULL) {
       throw new Error("Cannot return null for a required field.");
     } else {
-      return value.toBytes();
+      return value.toString();
     }
   }
 
-  set id(value: Bytes) {
-    this.set("id", Value.fromBytes(value));
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
   }
 
   get vault(): Bytes {
@@ -927,6 +925,14 @@ export class VaultCreated extends Entity {
   set transactionHash(value: Bytes) {
     this.set("transactionHash", Value.fromBytes(value));
   }
+
+  get nfts(): VaultNFTLoader {
+    return new VaultNFTLoader(
+      "VaultCreated",
+      this.get("id")!.toString(),
+      "nfts"
+    );
+  }
 }
 
 export class VaultNFT extends Entity {
@@ -968,17 +974,17 @@ export class VaultNFT extends Entity {
     this.set("id", Value.fromString(value));
   }
 
-  get vault(): Bytes {
+  get vault(): string {
     let value = this.get("vault");
     if (!value || value.kind == ValueKind.NULL) {
       throw new Error("Cannot return null for a required field.");
     } else {
-      return value.toBytes();
+      return value.toString();
     }
   }
 
-  set vault(value: Bytes) {
-    this.set("vault", Value.fromBytes(value));
+  set vault(value: string) {
+    this.set("vault", Value.fromString(value));
   }
 
   get tokenId(): BigInt {
@@ -992,5 +998,23 @@ export class VaultNFT extends Entity {
 
   set tokenId(value: BigInt) {
     this.set("tokenId", Value.fromBigInt(value));
+  }
+}
+
+export class VaultNFTLoader extends Entity {
+  _entity: string;
+  _field: string;
+  _id: string;
+
+  constructor(entity: string, id: string, field: string) {
+    super();
+    this._entity = entity;
+    this._id = id;
+    this._field = field;
+  }
+
+  load(): VaultNFT[] {
+    let value = store.loadRelated(this._entity, this._id, this._field);
+    return changetype<VaultNFT[]>(value);
   }
 }

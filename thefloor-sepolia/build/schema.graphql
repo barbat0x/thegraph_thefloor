@@ -64,17 +64,19 @@ type WithdrawBatch @entity(immutable: true) {
   blockTimestamp: BigInt!
   transactionHash: Bytes!
 }
+
 type VaultCreated @entity(immutable: true) {
-  id: Bytes!
+  id: ID!
   vault: Bytes! # address
   collection: Bytes! # address
   blockNumber: BigInt!
   blockTimestamp: BigInt!
   transactionHash: Bytes!
+  nfts: [VaultNFT!] @derivedFrom(field: "vault")
 }
 
 type VaultNFT @entity {
   id: ID!
-  vault: Bytes!
+  vault: VaultCreated!
   tokenId: BigInt!
 }
