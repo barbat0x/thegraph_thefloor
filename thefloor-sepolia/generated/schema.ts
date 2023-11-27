@@ -933,6 +933,14 @@ export class VaultCreated extends Entity {
       "nfts"
     );
   }
+
+  get erc20Tokens(): VaultERC20Loader {
+    return new VaultERC20Loader(
+      "VaultCreated",
+      this.get("id")!.toString(),
+      "erc20Tokens"
+    );
+  }
 }
 
 export class VaultNFT extends Entity {
@@ -999,6 +1007,98 @@ export class VaultNFT extends Entity {
   set tokenId(value: BigInt) {
     this.set("tokenId", Value.fromBigInt(value));
   }
+
+  get amount(): BigInt {
+    let value = this.get("amount");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set amount(value: BigInt) {
+    this.set("amount", Value.fromBigInt(value));
+  }
+}
+
+export class VaultERC20 extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id != null, "Cannot save VaultERC20 entity without an ID");
+    if (id) {
+      assert(
+        id.kind == ValueKind.STRING,
+        `Entities of type VaultERC20 must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
+      );
+      store.set("VaultERC20", id.toString(), this);
+    }
+  }
+
+  static loadInBlock(id: string): VaultERC20 | null {
+    return changetype<VaultERC20 | null>(store.get_in_block("VaultERC20", id));
+  }
+
+  static load(id: string): VaultERC20 | null {
+    return changetype<VaultERC20 | null>(store.get("VaultERC20", id));
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toString();
+    }
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get vault(): string {
+    let value = this.get("vault");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toString();
+    }
+  }
+
+  set vault(value: string) {
+    this.set("vault", Value.fromString(value));
+  }
+
+  get VaultId(): BigInt {
+    let value = this.get("VaultId");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set VaultId(value: BigInt) {
+    this.set("VaultId", Value.fromBigInt(value));
+  }
+
+  get erc20(): Bytes {
+    let value = this.get("erc20");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBytes();
+    }
+  }
+
+  set erc20(value: Bytes) {
+    this.set("erc20", Value.fromBytes(value));
+  }
 }
 
 export class VaultNFTLoader extends Entity {
@@ -1016,5 +1116,23 @@ export class VaultNFTLoader extends Entity {
   load(): VaultNFT[] {
     let value = store.loadRelated(this._entity, this._id, this._field);
     return changetype<VaultNFT[]>(value);
+  }
+}
+
+export class VaultERC20Loader extends Entity {
+  _entity: string;
+  _field: string;
+  _id: string;
+
+  constructor(entity: string, id: string, field: string) {
+    super();
+    this._entity = entity;
+    this._id = id;
+    this._field = field;
+  }
+
+  load(): VaultERC20[] {
+    let value = store.loadRelated(this._entity, this._id, this._field);
+    return changetype<VaultERC20[]>(value);
   }
 }

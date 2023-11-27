@@ -73,10 +73,19 @@ type VaultCreated @entity(immutable: true) {
   blockTimestamp: BigInt!
   transactionHash: Bytes!
   nfts: [VaultNFT!] @derivedFrom(field: "vault")
+  erc20Tokens: [VaultERC20!] @derivedFrom(field: "vault")
 }
 
 type VaultNFT @entity {
   id: ID!
   vault: VaultCreated!
   tokenId: BigInt!
+  amount: BigInt!
+}
+
+type VaultERC20 @entity(immutable: true) {
+  id: ID!
+  vault: VaultCreated!
+  VaultId: BigInt!
+  erc20: Bytes!
 }
