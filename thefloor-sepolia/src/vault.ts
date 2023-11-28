@@ -21,6 +21,7 @@ import {
 import { VaultCreated, VaultNFT } from "../generated/schema"
 
 import { BigInt, Bytes, Entity, store } from "@graphprotocol/graph-ts"
+import { TokenTemplate } from "../generated/templates"
 
 export function handleInitialized(event: InitializedEvent): void {
   let entity = new Initialized(
@@ -40,7 +41,7 @@ export function handleDeposit(event: DepositEvent): void {
 
   let nftId = vaultId + "-" + event.params.id.toString()
   let vaultNft = new VaultNFT(nftId)
-  vaultNft.vault = vaultId // Assurez-vous que le champ 'vault' dans VaultNFT accepte un ID sous forme de chaîne
+  vaultNft.vault = vaultId
   vaultNft.tokenId = event.params.id
   vaultNft.amount = event.params.amounts
   vaultNft.save()
@@ -75,7 +76,7 @@ export function handleSwap(event: SwapEvent): void {
   let toVaultNft = new VaultNFT(fromNftId)
   toVaultNft.vault = vaultId
   toVaultNft.tokenId = event.params.fromId
-  toVaultNft.amount = new BigInt(1)
+  toVaultNft.amount = new BigInt(1) // check bigint implementation
   toVaultNft.save()
 }
 
@@ -88,6 +89,8 @@ export function handleTokenCreated(event: TokenCreatedEvent): void {
   erc20.erc20 = event.params.token
 
   erc20.save()
+
+  TokenTemplate.create(event.params.token)
 }
 
 export function handleWithdraw(event: WithdrawEvent): void {

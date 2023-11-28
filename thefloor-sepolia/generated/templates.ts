@@ -19,3 +19,17 @@ export class VaultTemplate extends DataSourceTemplate {
     );
   }
 }
+
+export class TokenTemplate extends DataSourceTemplate {
+  static create(address: Address): void {
+    DataSourceTemplate.create("TokenTemplate", [address.toHex()]);
+  }
+
+  static createWithContext(address: Address, context: DataSourceContext): void {
+    DataSourceTemplate.createWithContext(
+      "TokenTemplate",
+      [address.toHex()],
+      context
+    );
+  }
+}

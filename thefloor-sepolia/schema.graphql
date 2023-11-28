@@ -89,3 +89,21 @@ type VaultERC20 @entity(immutable: true) {
   VaultId: BigInt!
   erc20: Bytes!
 }
+
+type UserBalance @entity {
+  id: ID!
+  user: Bytes!
+  vaultERC20: VaultERC20!
+  balance: BigInt!
+}
+
+type TokenTransfer @entity {
+  id: ID!
+  token: VaultERC20! # Référence à l'entité du token ERC20
+  from: Bytes! # Adresse de l'expéditeur
+  to: Bytes! # Adresse du destinataire
+  value: BigInt! # Montant du token transféré
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
