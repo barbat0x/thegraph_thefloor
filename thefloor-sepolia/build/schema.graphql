@@ -1,109 +1,154 @@
 type Deposit @entity(immutable: true) {
-  id: Bytes!
-  to: Bytes! # address
-  Vault_id: BigInt! # uint256
-  amounts: BigInt! # uint256
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
+    id: Bytes!
+    to: Bytes! # address
+    Vault_id: BigInt! # uint256
+    amounts: BigInt! # uint256
+    blockNumber: BigInt!
+    blockTimestamp: BigInt!
+    transactionHash: Bytes!
 }
 
 type DepositBatch @entity(immutable: true) {
-  id: Bytes!
-  to: Bytes! # address
-  ids: [BigInt!]! # uint256[]
-  amounts: [BigInt!]! # uint256[]
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
+    id: Bytes!
+    to: Bytes! # address
+    ids: [BigInt!]! # uint256[]
+    amounts: [BigInt!]! # uint256[]
+    blockNumber: BigInt!
+    blockTimestamp: BigInt!
+    transactionHash: Bytes!
 }
 
 type Initialized @entity(immutable: true) {
-  id: Bytes!
-  version: Int! # uint8
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
+    id: Bytes!
+    version: Int! # uint8
+    blockNumber: BigInt!
+    blockTimestamp: BigInt!
+    transactionHash: Bytes!
 }
 
 type Swap @entity(immutable: true) {
-  id: Bytes!
-  to: Bytes! # address
-  fromId: BigInt! # uint256
-  toId: BigInt! # uint256
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
+    id: Bytes!
+    to: Bytes! # address
+    fromId: BigInt! # uint256
+    toId: BigInt! # uint256
+    blockNumber: BigInt!
+    blockTimestamp: BigInt!
+    transactionHash: Bytes!
 }
 
 type TokenCreated @entity(immutable: true) {
-  id: Bytes!
-  token: Bytes! # address
-  Vault_id: BigInt! # uint256
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
+    id: Bytes!
+    token: Bytes! # address
+    Vault_id: BigInt! # uint256
+    blockNumber: BigInt!
+    blockTimestamp: BigInt!
+    transactionHash: Bytes!
 }
 
 type Withdraw @entity(immutable: true) {
-  id: Bytes!
-  to: Bytes! # address
-  Vault_id: BigInt! # uint256
-  amounts: BigInt! # uint256
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
+    id: Bytes!
+    to: Bytes! # address
+    Vault_id: BigInt! # uint256
+    amounts: BigInt! # uint256
+    blockNumber: BigInt!
+    blockTimestamp: BigInt!
+    transactionHash: Bytes!
 }
 
 type WithdrawBatch @entity(immutable: true) {
-  id: Bytes!
-  to: Bytes! # address
-  ids: [BigInt!]! # uint256[]
-  amounts: [BigInt!]! # uint256[]
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
+    id: Bytes!
+    to: Bytes! # address
+    ids: [BigInt!]! # uint256[]
+    amounts: [BigInt!]! # uint256[]
+    blockNumber: BigInt!
+    blockTimestamp: BigInt!
+    transactionHash: Bytes!
 }
 
 type VaultCreated @entity(immutable: true) {
-  id: ID!
-  vault: Bytes! # address
-  collection: Bytes! # address
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
-  nfts: [VaultNFT!] @derivedFrom(field: "vault")
-  erc20Tokens: [VaultERC20!] @derivedFrom(field: "vault")
+    id: ID!
+    vault: Bytes! # address
+    collection: Bytes! # address
+    blockNumber: BigInt!
+    blockTimestamp: BigInt!
+    transactionHash: Bytes!
+    nfts: [VaultNFT!] @derivedFrom(field: "vault")
+    erc20Tokens: [VaultERC20!] @derivedFrom(field: "vault")
 }
 
 type VaultNFT @entity {
-  id: ID!
-  vault: VaultCreated!
-  tokenId: BigInt!
-  amount: BigInt!
+    id: ID!
+    vault: VaultCreated!
+    tokenId: BigInt!
+    amount: BigInt!
 }
 
 type VaultERC20 @entity(immutable: true) {
-  id: ID!
-  vault: VaultCreated!
-  VaultId: BigInt!
-  erc20: Bytes!
+    id: ID!
+    vault: VaultCreated!
+    VaultId: BigInt!
+    erc20: Bytes!
 }
 
 type UserBalance @entity {
-  id: ID!
-  user: Bytes!
-  vaultERC20: VaultERC20!
-  balance: BigInt!
+    id: ID!
+    user: Bytes!
+    vaultERC20: VaultERC20!
+    balance: BigInt!
 }
 
 type TokenTransfer @entity {
-  id: ID!
-  token: VaultERC20! # Référence à l'entité du token ERC20
-  from: Bytes! # Adresse de l'expéditeur
-  to: Bytes! # Adresse du destinataire
-  value: BigInt! # Montant du token transféré
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
+    id: ID!
+    token: VaultERC20! # Référence à l'entité du token ERC20
+    from: Bytes! # Adresse de l'expéditeur
+    to: Bytes! # Adresse du destinataire
+    value: BigInt! # Montant du token transféré
+    blockNumber: BigInt!
+    blockTimestamp: BigInt!
+    transactionHash: Bytes!
+}
+
+# Safe
+
+type SafeDeposit @entity(immutable: true) {
+    id: ID!
+    collection: Bytes!
+    tokenId: BigInt!
+    expiration: BigInt!
+    from: Bytes
+}
+
+type SafeWithdraw @entity(immutable: true) {
+    id: ID!
+    collection: Bytes!
+    tokenId: BigInt!
+    to: Bytes!
+}
+
+type SafeBurn @entity(immutable: true) {
+    id: ID!
+    collection: Bytes!
+    tokenId: BigInt!
+    to: Bytes!
+}
+
+type SafeExpiredBought @entity(immutable: true) {
+    id: ID!
+    collection: Bytes!
+    tokenId: BigInt!
+    to: Bytes!
+}
+
+type SafeUnderlying @entity {
+    id: ID!
+    collection: Bytes!
+    tokenId: BigInt!
+    expiration: BigInt!
+    sender: Bytes!
+    safe: SafeContract!
+}
+
+type SafeContract @entity {
+    id: ID!
+    nfts: [SafeUnderlying!] @derivedFrom(field: "safe")
 }

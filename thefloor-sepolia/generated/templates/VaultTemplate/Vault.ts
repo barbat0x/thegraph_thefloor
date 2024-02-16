@@ -7,7 +7,7 @@ import {
   Entity,
   Bytes,
   Address,
-  BigInt
+  BigInt,
 } from "@graphprotocol/graph-ts";
 
 export class Deposit extends ethereum.Event {
@@ -210,7 +210,7 @@ export class Vault extends ethereum.SmartContract {
     let result = super.tryCall(
       "collectionType",
       "collectionType():(uint8)",
-      []
+      [],
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -223,7 +223,7 @@ export class Vault extends ethereum.SmartContract {
     let result = super.call(
       "getERC20Address",
       "getERC20Address():(address)",
-      []
+      [],
     );
 
     return result[0].toAddress();
@@ -233,7 +233,7 @@ export class Vault extends ethereum.SmartContract {
     let result = super.tryCall(
       "getERC20Address",
       "getERC20Address():(address)",
-      []
+      [],
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -246,7 +246,7 @@ export class Vault extends ethereum.SmartContract {
     let result = super.call(
       "getERC20Address1155",
       "getERC20Address1155(uint256):(address)",
-      [ethereum.Value.fromUnsignedBigInt(tokenId)]
+      [ethereum.Value.fromUnsignedBigInt(tokenId)],
     );
 
     return result[0].toAddress();
@@ -256,7 +256,7 @@ export class Vault extends ethereum.SmartContract {
     let result = super.tryCall(
       "getERC20Address1155",
       "getERC20Address1155(uint256):(address)",
-      [ethereum.Value.fromUnsignedBigInt(tokenId)]
+      [ethereum.Value.fromUnsignedBigInt(tokenId)],
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -270,7 +270,7 @@ export class Vault extends ethereum.SmartContract {
     from: Address,
     ids: Array<BigInt>,
     values: Array<BigInt>,
-    data: Bytes
+    data: Bytes,
   ): Bytes {
     let result = super.call(
       "onERC1155BatchReceived",
@@ -280,8 +280,8 @@ export class Vault extends ethereum.SmartContract {
         ethereum.Value.fromAddress(from),
         ethereum.Value.fromUnsignedBigIntArray(ids),
         ethereum.Value.fromUnsignedBigIntArray(values),
-        ethereum.Value.fromBytes(data)
-      ]
+        ethereum.Value.fromBytes(data),
+      ],
     );
 
     return result[0].toBytes();
@@ -292,7 +292,7 @@ export class Vault extends ethereum.SmartContract {
     from: Address,
     ids: Array<BigInt>,
     values: Array<BigInt>,
-    data: Bytes
+    data: Bytes,
   ): ethereum.CallResult<Bytes> {
     let result = super.tryCall(
       "onERC1155BatchReceived",
@@ -302,8 +302,8 @@ export class Vault extends ethereum.SmartContract {
         ethereum.Value.fromAddress(from),
         ethereum.Value.fromUnsignedBigIntArray(ids),
         ethereum.Value.fromUnsignedBigIntArray(values),
-        ethereum.Value.fromBytes(data)
-      ]
+        ethereum.Value.fromBytes(data),
+      ],
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -317,7 +317,7 @@ export class Vault extends ethereum.SmartContract {
     from: Address,
     id: BigInt,
     value: BigInt,
-    data: Bytes
+    data: Bytes,
   ): Bytes {
     let result = super.call(
       "onERC1155Received",
@@ -327,8 +327,8 @@ export class Vault extends ethereum.SmartContract {
         ethereum.Value.fromAddress(from),
         ethereum.Value.fromUnsignedBigInt(id),
         ethereum.Value.fromUnsignedBigInt(value),
-        ethereum.Value.fromBytes(data)
-      ]
+        ethereum.Value.fromBytes(data),
+      ],
     );
 
     return result[0].toBytes();
@@ -339,7 +339,7 @@ export class Vault extends ethereum.SmartContract {
     from: Address,
     id: BigInt,
     value: BigInt,
-    data: Bytes
+    data: Bytes,
   ): ethereum.CallResult<Bytes> {
     let result = super.tryCall(
       "onERC1155Received",
@@ -349,8 +349,8 @@ export class Vault extends ethereum.SmartContract {
         ethereum.Value.fromAddress(from),
         ethereum.Value.fromUnsignedBigInt(id),
         ethereum.Value.fromUnsignedBigInt(value),
-        ethereum.Value.fromBytes(data)
-      ]
+        ethereum.Value.fromBytes(data),
+      ],
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -363,7 +363,7 @@ export class Vault extends ethereum.SmartContract {
     param0: Address,
     from: Address,
     tokenId: BigInt,
-    data: Bytes
+    data: Bytes,
   ): Bytes {
     let result = super.call(
       "onERC721Received",
@@ -372,8 +372,8 @@ export class Vault extends ethereum.SmartContract {
         ethereum.Value.fromAddress(param0),
         ethereum.Value.fromAddress(from),
         ethereum.Value.fromUnsignedBigInt(tokenId),
-        ethereum.Value.fromBytes(data)
-      ]
+        ethereum.Value.fromBytes(data),
+      ],
     );
 
     return result[0].toBytes();
@@ -383,7 +383,7 @@ export class Vault extends ethereum.SmartContract {
     param0: Address,
     from: Address,
     tokenId: BigInt,
-    data: Bytes
+    data: Bytes,
   ): ethereum.CallResult<Bytes> {
     let result = super.tryCall(
       "onERC721Received",
@@ -392,8 +392,8 @@ export class Vault extends ethereum.SmartContract {
         ethereum.Value.fromAddress(param0),
         ethereum.Value.fromAddress(from),
         ethereum.Value.fromUnsignedBigInt(tokenId),
-        ethereum.Value.fromBytes(data)
-      ]
+        ethereum.Value.fromBytes(data),
+      ],
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -421,7 +421,7 @@ export class Vault extends ethereum.SmartContract {
     let result = super.call(
       "supportsInterface",
       "supportsInterface(bytes4):(bool)",
-      [ethereum.Value.fromFixedBytes(interfaceId)]
+      [ethereum.Value.fromFixedBytes(interfaceId)],
     );
 
     return result[0].toBoolean();
@@ -431,7 +431,7 @@ export class Vault extends ethereum.SmartContract {
     let result = super.tryCall(
       "supportsInterface",
       "supportsInterface(bytes4):(bool)",
-      [ethereum.Value.fromFixedBytes(interfaceId)]
+      [ethereum.Value.fromFixedBytes(interfaceId)],
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -444,7 +444,7 @@ export class Vault extends ethereum.SmartContract {
     let result = super.call(
       "tokenAddresses",
       "tokenAddresses(uint256):(address)",
-      [ethereum.Value.fromUnsignedBigInt(param0)]
+      [ethereum.Value.fromUnsignedBigInt(param0)],
     );
 
     return result[0].toAddress();
@@ -454,7 +454,7 @@ export class Vault extends ethereum.SmartContract {
     let result = super.tryCall(
       "tokenAddresses",
       "tokenAddresses(uint256):(address)",
-      [ethereum.Value.fromUnsignedBigInt(param0)]
+      [ethereum.Value.fromUnsignedBigInt(param0)],
     );
     if (result.reverted) {
       return new ethereum.CallResult();

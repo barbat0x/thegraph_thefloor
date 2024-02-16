@@ -8,7 +8,7 @@ import {
   store,
   Bytes,
   BigInt,
-  BigDecimal
+  BigDecimal,
 } from "@graphprotocol/graph-ts";
 
 export class Deposit extends Entity {
@@ -23,7 +23,7 @@ export class Deposit extends Entity {
     if (id) {
       assert(
         id.kind == ValueKind.BYTES,
-        `Entities of type Deposit must have an ID of type Bytes but the id '${id.displayData()}' is of type ${id.displayKind()}`
+        `Entities of type Deposit must have an ID of type Bytes but the id '${id.displayData()}' is of type ${id.displayKind()}`,
       );
       store.set("Deposit", id.toBytes().toHexString(), this);
     }
@@ -31,7 +31,7 @@ export class Deposit extends Entity {
 
   static loadInBlock(id: Bytes): Deposit | null {
     return changetype<Deposit | null>(
-      store.get_in_block("Deposit", id.toHexString())
+      store.get_in_block("Deposit", id.toHexString()),
     );
   }
 
@@ -143,7 +143,7 @@ export class DepositBatch extends Entity {
     if (id) {
       assert(
         id.kind == ValueKind.BYTES,
-        `Entities of type DepositBatch must have an ID of type Bytes but the id '${id.displayData()}' is of type ${id.displayKind()}`
+        `Entities of type DepositBatch must have an ID of type Bytes but the id '${id.displayData()}' is of type ${id.displayKind()}`,
       );
       store.set("DepositBatch", id.toBytes().toHexString(), this);
     }
@@ -151,13 +151,13 @@ export class DepositBatch extends Entity {
 
   static loadInBlock(id: Bytes): DepositBatch | null {
     return changetype<DepositBatch | null>(
-      store.get_in_block("DepositBatch", id.toHexString())
+      store.get_in_block("DepositBatch", id.toHexString()),
     );
   }
 
   static load(id: Bytes): DepositBatch | null {
     return changetype<DepositBatch | null>(
-      store.get("DepositBatch", id.toHexString())
+      store.get("DepositBatch", id.toHexString()),
     );
   }
 
@@ -265,7 +265,7 @@ export class Initialized extends Entity {
     if (id) {
       assert(
         id.kind == ValueKind.BYTES,
-        `Entities of type Initialized must have an ID of type Bytes but the id '${id.displayData()}' is of type ${id.displayKind()}`
+        `Entities of type Initialized must have an ID of type Bytes but the id '${id.displayData()}' is of type ${id.displayKind()}`,
       );
       store.set("Initialized", id.toBytes().toHexString(), this);
     }
@@ -273,13 +273,13 @@ export class Initialized extends Entity {
 
   static loadInBlock(id: Bytes): Initialized | null {
     return changetype<Initialized | null>(
-      store.get_in_block("Initialized", id.toHexString())
+      store.get_in_block("Initialized", id.toHexString()),
     );
   }
 
   static load(id: Bytes): Initialized | null {
     return changetype<Initialized | null>(
-      store.get("Initialized", id.toHexString())
+      store.get("Initialized", id.toHexString()),
     );
   }
 
@@ -361,7 +361,7 @@ export class Swap extends Entity {
     if (id) {
       assert(
         id.kind == ValueKind.BYTES,
-        `Entities of type Swap must have an ID of type Bytes but the id '${id.displayData()}' is of type ${id.displayKind()}`
+        `Entities of type Swap must have an ID of type Bytes but the id '${id.displayData()}' is of type ${id.displayKind()}`,
       );
       store.set("Swap", id.toBytes().toHexString(), this);
     }
@@ -369,7 +369,7 @@ export class Swap extends Entity {
 
   static loadInBlock(id: Bytes): Swap | null {
     return changetype<Swap | null>(
-      store.get_in_block("Swap", id.toHexString())
+      store.get_in_block("Swap", id.toHexString()),
     );
   }
 
@@ -481,7 +481,7 @@ export class TokenCreated extends Entity {
     if (id) {
       assert(
         id.kind == ValueKind.BYTES,
-        `Entities of type TokenCreated must have an ID of type Bytes but the id '${id.displayData()}' is of type ${id.displayKind()}`
+        `Entities of type TokenCreated must have an ID of type Bytes but the id '${id.displayData()}' is of type ${id.displayKind()}`,
       );
       store.set("TokenCreated", id.toBytes().toHexString(), this);
     }
@@ -489,13 +489,13 @@ export class TokenCreated extends Entity {
 
   static loadInBlock(id: Bytes): TokenCreated | null {
     return changetype<TokenCreated | null>(
-      store.get_in_block("TokenCreated", id.toHexString())
+      store.get_in_block("TokenCreated", id.toHexString()),
     );
   }
 
   static load(id: Bytes): TokenCreated | null {
     return changetype<TokenCreated | null>(
-      store.get("TokenCreated", id.toHexString())
+      store.get("TokenCreated", id.toHexString()),
     );
   }
 
@@ -590,7 +590,7 @@ export class Withdraw extends Entity {
     if (id) {
       assert(
         id.kind == ValueKind.BYTES,
-        `Entities of type Withdraw must have an ID of type Bytes but the id '${id.displayData()}' is of type ${id.displayKind()}`
+        `Entities of type Withdraw must have an ID of type Bytes but the id '${id.displayData()}' is of type ${id.displayKind()}`,
       );
       store.set("Withdraw", id.toBytes().toHexString(), this);
     }
@@ -598,7 +598,7 @@ export class Withdraw extends Entity {
 
   static loadInBlock(id: Bytes): Withdraw | null {
     return changetype<Withdraw | null>(
-      store.get_in_block("Withdraw", id.toHexString())
+      store.get_in_block("Withdraw", id.toHexString()),
     );
   }
 
@@ -710,7 +710,7 @@ export class WithdrawBatch extends Entity {
     if (id) {
       assert(
         id.kind == ValueKind.BYTES,
-        `Entities of type WithdrawBatch must have an ID of type Bytes but the id '${id.displayData()}' is of type ${id.displayKind()}`
+        `Entities of type WithdrawBatch must have an ID of type Bytes but the id '${id.displayData()}' is of type ${id.displayKind()}`,
       );
       store.set("WithdrawBatch", id.toBytes().toHexString(), this);
     }
@@ -718,13 +718,13 @@ export class WithdrawBatch extends Entity {
 
   static loadInBlock(id: Bytes): WithdrawBatch | null {
     return changetype<WithdrawBatch | null>(
-      store.get_in_block("WithdrawBatch", id.toHexString())
+      store.get_in_block("WithdrawBatch", id.toHexString()),
     );
   }
 
   static load(id: Bytes): WithdrawBatch | null {
     return changetype<WithdrawBatch | null>(
-      store.get("WithdrawBatch", id.toHexString())
+      store.get("WithdrawBatch", id.toHexString()),
     );
   }
 
@@ -832,7 +832,7 @@ export class VaultCreated extends Entity {
     if (id) {
       assert(
         id.kind == ValueKind.STRING,
-        `Entities of type VaultCreated must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
+        `Entities of type VaultCreated must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`,
       );
       store.set("VaultCreated", id.toString(), this);
     }
@@ -840,7 +840,7 @@ export class VaultCreated extends Entity {
 
   static loadInBlock(id: string): VaultCreated | null {
     return changetype<VaultCreated | null>(
-      store.get_in_block("VaultCreated", id)
+      store.get_in_block("VaultCreated", id),
     );
   }
 
@@ -930,7 +930,7 @@ export class VaultCreated extends Entity {
     return new VaultNFTLoader(
       "VaultCreated",
       this.get("id")!.toString(),
-      "nfts"
+      "nfts",
     );
   }
 
@@ -938,7 +938,7 @@ export class VaultCreated extends Entity {
     return new VaultERC20Loader(
       "VaultCreated",
       this.get("id")!.toString(),
-      "erc20Tokens"
+      "erc20Tokens",
     );
   }
 }
@@ -955,7 +955,7 @@ export class VaultNFT extends Entity {
     if (id) {
       assert(
         id.kind == ValueKind.STRING,
-        `Entities of type VaultNFT must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
+        `Entities of type VaultNFT must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`,
       );
       store.set("VaultNFT", id.toString(), this);
     }
@@ -1034,7 +1034,7 @@ export class VaultERC20 extends Entity {
     if (id) {
       assert(
         id.kind == ValueKind.STRING,
-        `Entities of type VaultERC20 must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
+        `Entities of type VaultERC20 must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`,
       );
       store.set("VaultERC20", id.toString(), this);
     }
@@ -1113,7 +1113,7 @@ export class UserBalance extends Entity {
     if (id) {
       assert(
         id.kind == ValueKind.STRING,
-        `Entities of type UserBalance must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
+        `Entities of type UserBalance must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`,
       );
       store.set("UserBalance", id.toString(), this);
     }
@@ -1121,7 +1121,7 @@ export class UserBalance extends Entity {
 
   static loadInBlock(id: string): UserBalance | null {
     return changetype<UserBalance | null>(
-      store.get_in_block("UserBalance", id)
+      store.get_in_block("UserBalance", id),
     );
   }
 
@@ -1194,7 +1194,7 @@ export class TokenTransfer extends Entity {
     if (id) {
       assert(
         id.kind == ValueKind.STRING,
-        `Entities of type TokenTransfer must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
+        `Entities of type TokenTransfer must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`,
       );
       store.set("TokenTransfer", id.toString(), this);
     }
@@ -1202,7 +1202,7 @@ export class TokenTransfer extends Entity {
 
   static loadInBlock(id: string): TokenTransfer | null {
     return changetype<TokenTransfer | null>(
-      store.get_in_block("TokenTransfer", id)
+      store.get_in_block("TokenTransfer", id),
     );
   }
 
@@ -1315,6 +1315,504 @@ export class TokenTransfer extends Entity {
   }
 }
 
+export class SafeDeposit extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id != null, "Cannot save SafeDeposit entity without an ID");
+    if (id) {
+      assert(
+        id.kind == ValueKind.STRING,
+        `Entities of type SafeDeposit must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`,
+      );
+      store.set("SafeDeposit", id.toString(), this);
+    }
+  }
+
+  static loadInBlock(id: string): SafeDeposit | null {
+    return changetype<SafeDeposit | null>(
+      store.get_in_block("SafeDeposit", id),
+    );
+  }
+
+  static load(id: string): SafeDeposit | null {
+    return changetype<SafeDeposit | null>(store.get("SafeDeposit", id));
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toString();
+    }
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get collection(): Bytes {
+    let value = this.get("collection");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBytes();
+    }
+  }
+
+  set collection(value: Bytes) {
+    this.set("collection", Value.fromBytes(value));
+  }
+
+  get tokenId(): BigInt {
+    let value = this.get("tokenId");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set tokenId(value: BigInt) {
+    this.set("tokenId", Value.fromBigInt(value));
+  }
+
+  get expiration(): BigInt {
+    let value = this.get("expiration");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set expiration(value: BigInt) {
+    this.set("expiration", Value.fromBigInt(value));
+  }
+
+  get from(): Bytes | null {
+    let value = this.get("from");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toBytes();
+    }
+  }
+
+  set from(value: Bytes | null) {
+    if (!value) {
+      this.unset("from");
+    } else {
+      this.set("from", Value.fromBytes(<Bytes>value));
+    }
+  }
+}
+
+export class SafeWithdraw extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id != null, "Cannot save SafeWithdraw entity without an ID");
+    if (id) {
+      assert(
+        id.kind == ValueKind.STRING,
+        `Entities of type SafeWithdraw must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`,
+      );
+      store.set("SafeWithdraw", id.toString(), this);
+    }
+  }
+
+  static loadInBlock(id: string): SafeWithdraw | null {
+    return changetype<SafeWithdraw | null>(
+      store.get_in_block("SafeWithdraw", id),
+    );
+  }
+
+  static load(id: string): SafeWithdraw | null {
+    return changetype<SafeWithdraw | null>(store.get("SafeWithdraw", id));
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toString();
+    }
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get collection(): Bytes {
+    let value = this.get("collection");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBytes();
+    }
+  }
+
+  set collection(value: Bytes) {
+    this.set("collection", Value.fromBytes(value));
+  }
+
+  get tokenId(): BigInt {
+    let value = this.get("tokenId");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set tokenId(value: BigInt) {
+    this.set("tokenId", Value.fromBigInt(value));
+  }
+
+  get to(): Bytes {
+    let value = this.get("to");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBytes();
+    }
+  }
+
+  set to(value: Bytes) {
+    this.set("to", Value.fromBytes(value));
+  }
+}
+
+export class SafeBurn extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id != null, "Cannot save SafeBurn entity without an ID");
+    if (id) {
+      assert(
+        id.kind == ValueKind.STRING,
+        `Entities of type SafeBurn must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`,
+      );
+      store.set("SafeBurn", id.toString(), this);
+    }
+  }
+
+  static loadInBlock(id: string): SafeBurn | null {
+    return changetype<SafeBurn | null>(store.get_in_block("SafeBurn", id));
+  }
+
+  static load(id: string): SafeBurn | null {
+    return changetype<SafeBurn | null>(store.get("SafeBurn", id));
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toString();
+    }
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get collection(): Bytes {
+    let value = this.get("collection");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBytes();
+    }
+  }
+
+  set collection(value: Bytes) {
+    this.set("collection", Value.fromBytes(value));
+  }
+
+  get tokenId(): BigInt {
+    let value = this.get("tokenId");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set tokenId(value: BigInt) {
+    this.set("tokenId", Value.fromBigInt(value));
+  }
+
+  get to(): Bytes {
+    let value = this.get("to");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBytes();
+    }
+  }
+
+  set to(value: Bytes) {
+    this.set("to", Value.fromBytes(value));
+  }
+}
+
+export class SafeExpiredBought extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id != null, "Cannot save SafeExpiredBought entity without an ID");
+    if (id) {
+      assert(
+        id.kind == ValueKind.STRING,
+        `Entities of type SafeExpiredBought must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`,
+      );
+      store.set("SafeExpiredBought", id.toString(), this);
+    }
+  }
+
+  static loadInBlock(id: string): SafeExpiredBought | null {
+    return changetype<SafeExpiredBought | null>(
+      store.get_in_block("SafeExpiredBought", id),
+    );
+  }
+
+  static load(id: string): SafeExpiredBought | null {
+    return changetype<SafeExpiredBought | null>(
+      store.get("SafeExpiredBought", id),
+    );
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toString();
+    }
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get collection(): Bytes {
+    let value = this.get("collection");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBytes();
+    }
+  }
+
+  set collection(value: Bytes) {
+    this.set("collection", Value.fromBytes(value));
+  }
+
+  get tokenId(): BigInt {
+    let value = this.get("tokenId");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set tokenId(value: BigInt) {
+    this.set("tokenId", Value.fromBigInt(value));
+  }
+
+  get to(): Bytes {
+    let value = this.get("to");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBytes();
+    }
+  }
+
+  set to(value: Bytes) {
+    this.set("to", Value.fromBytes(value));
+  }
+}
+
+export class SafeUnderlying extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id != null, "Cannot save SafeUnderlying entity without an ID");
+    if (id) {
+      assert(
+        id.kind == ValueKind.STRING,
+        `Entities of type SafeUnderlying must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`,
+      );
+      store.set("SafeUnderlying", id.toString(), this);
+    }
+  }
+
+  static loadInBlock(id: string): SafeUnderlying | null {
+    return changetype<SafeUnderlying | null>(
+      store.get_in_block("SafeUnderlying", id),
+    );
+  }
+
+  static load(id: string): SafeUnderlying | null {
+    return changetype<SafeUnderlying | null>(store.get("SafeUnderlying", id));
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toString();
+    }
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get collection(): Bytes {
+    let value = this.get("collection");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBytes();
+    }
+  }
+
+  set collection(value: Bytes) {
+    this.set("collection", Value.fromBytes(value));
+  }
+
+  get tokenId(): BigInt {
+    let value = this.get("tokenId");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set tokenId(value: BigInt) {
+    this.set("tokenId", Value.fromBigInt(value));
+  }
+
+  get expiration(): BigInt {
+    let value = this.get("expiration");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set expiration(value: BigInt) {
+    this.set("expiration", Value.fromBigInt(value));
+  }
+
+  get sender(): Bytes {
+    let value = this.get("sender");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBytes();
+    }
+  }
+
+  set sender(value: Bytes) {
+    this.set("sender", Value.fromBytes(value));
+  }
+
+  get safe(): string {
+    let value = this.get("safe");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toString();
+    }
+  }
+
+  set safe(value: string) {
+    this.set("safe", Value.fromString(value));
+  }
+}
+
+export class SafeContract extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id != null, "Cannot save SafeContract entity without an ID");
+    if (id) {
+      assert(
+        id.kind == ValueKind.STRING,
+        `Entities of type SafeContract must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`,
+      );
+      store.set("SafeContract", id.toString(), this);
+    }
+  }
+
+  static loadInBlock(id: string): SafeContract | null {
+    return changetype<SafeContract | null>(
+      store.get_in_block("SafeContract", id),
+    );
+  }
+
+  static load(id: string): SafeContract | null {
+    return changetype<SafeContract | null>(store.get("SafeContract", id));
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toString();
+    }
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get nfts(): SafeUnderlyingLoader {
+    return new SafeUnderlyingLoader(
+      "SafeContract",
+      this.get("id")!.toString(),
+      "nfts",
+    );
+  }
+}
+
 export class VaultNFTLoader extends Entity {
   _entity: string;
   _field: string;
@@ -1348,5 +1846,23 @@ export class VaultERC20Loader extends Entity {
   load(): VaultERC20[] {
     let value = store.loadRelated(this._entity, this._id, this._field);
     return changetype<VaultERC20[]>(value);
+  }
+}
+
+export class SafeUnderlyingLoader extends Entity {
+  _entity: string;
+  _field: string;
+  _id: string;
+
+  constructor(entity: string, id: string, field: string) {
+    super();
+    this._entity = entity;
+    this._id = id;
+    this._field = field;
+  }
+
+  load(): SafeUnderlying[] {
+    let value = store.loadRelated(this._entity, this._id, this._field);
+    return changetype<SafeUnderlying[]>(value);
   }
 }

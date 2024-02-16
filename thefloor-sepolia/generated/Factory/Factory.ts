@@ -7,7 +7,7 @@ import {
   Entity,
   Bytes,
   Address,
-  BigInt
+  BigInt,
 } from "@graphprotocol/graph-ts";
 
 export class VaultCreated extends ethereum.Event {
@@ -64,7 +64,7 @@ export class Factory extends ethereum.SmartContract {
 
   allVaults(param0: BigInt): Address {
     let result = super.call("allVaults", "allVaults(uint256):(address)", [
-      ethereum.Value.fromUnsignedBigInt(param0)
+      ethereum.Value.fromUnsignedBigInt(param0),
     ]);
 
     return result[0].toAddress();
@@ -72,7 +72,7 @@ export class Factory extends ethereum.SmartContract {
 
   try_allVaults(param0: BigInt): ethereum.CallResult<Address> {
     let result = super.tryCall("allVaults", "allVaults(uint256):(address)", [
-      ethereum.Value.fromUnsignedBigInt(param0)
+      ethereum.Value.fromUnsignedBigInt(param0),
     ]);
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -85,7 +85,7 @@ export class Factory extends ethereum.SmartContract {
     let result = super.call(
       "allVaultsLength",
       "allVaultsLength():(uint256)",
-      []
+      [],
     );
 
     return result[0].toBigInt();
@@ -95,7 +95,7 @@ export class Factory extends ethereum.SmartContract {
     let result = super.tryCall(
       "allVaultsLength",
       "allVaultsLength():(uint256)",
-      []
+      [],
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -108,7 +108,7 @@ export class Factory extends ethereum.SmartContract {
     let result = super.call(
       "getERC20Address",
       "getERC20Address(address):(address)",
-      [ethereum.Value.fromAddress(_collection)]
+      [ethereum.Value.fromAddress(_collection)],
     );
 
     return result[0].toAddress();
@@ -118,7 +118,7 @@ export class Factory extends ethereum.SmartContract {
     let result = super.tryCall(
       "getERC20Address",
       "getERC20Address(address):(address)",
-      [ethereum.Value.fromAddress(_collection)]
+      [ethereum.Value.fromAddress(_collection)],
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -133,8 +133,8 @@ export class Factory extends ethereum.SmartContract {
       "getERC20Address1155(address,uint256):(address)",
       [
         ethereum.Value.fromAddress(_collection),
-        ethereum.Value.fromUnsignedBigInt(_tokenId)
-      ]
+        ethereum.Value.fromUnsignedBigInt(_tokenId),
+      ],
     );
 
     return result[0].toAddress();
@@ -142,15 +142,15 @@ export class Factory extends ethereum.SmartContract {
 
   try_getERC20Address1155(
     _collection: Address,
-    _tokenId: BigInt
+    _tokenId: BigInt,
   ): ethereum.CallResult<Address> {
     let result = super.tryCall(
       "getERC20Address1155",
       "getERC20Address1155(address,uint256):(address)",
       [
         ethereum.Value.fromAddress(_collection),
-        ethereum.Value.fromUnsignedBigInt(_tokenId)
-      ]
+        ethereum.Value.fromUnsignedBigInt(_tokenId),
+      ],
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -163,19 +163,19 @@ export class Factory extends ethereum.SmartContract {
     let result = super.call(
       "getVaultDeterministicAddress",
       "getVaultDeterministicAddress(address):(address)",
-      [ethereum.Value.fromAddress(_collection)]
+      [ethereum.Value.fromAddress(_collection)],
     );
 
     return result[0].toAddress();
   }
 
   try_getVaultDeterministicAddress(
-    _collection: Address
+    _collection: Address,
   ): ethereum.CallResult<Address> {
     let result = super.tryCall(
       "getVaultDeterministicAddress",
       "getVaultDeterministicAddress(address):(address)",
-      [ethereum.Value.fromAddress(_collection)]
+      [ethereum.Value.fromAddress(_collection)],
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -190,27 +190,27 @@ export class Factory extends ethereum.SmartContract {
       "getVaults(uint256,uint256):(address[],uint256)",
       [
         ethereum.Value.fromUnsignedBigInt(startIndex),
-        ethereum.Value.fromUnsignedBigInt(numOfVaults)
-      ]
+        ethereum.Value.fromUnsignedBigInt(numOfVaults),
+      ],
     );
 
     return new Factory__getVaultsResult(
       result[0].toAddressArray(),
-      result[1].toBigInt()
+      result[1].toBigInt(),
     );
   }
 
   try_getVaults(
     startIndex: BigInt,
-    numOfVaults: BigInt
+    numOfVaults: BigInt,
   ): ethereum.CallResult<Factory__getVaultsResult> {
     let result = super.tryCall(
       "getVaults",
       "getVaults(uint256,uint256):(address[],uint256)",
       [
         ethereum.Value.fromUnsignedBigInt(startIndex),
-        ethereum.Value.fromUnsignedBigInt(numOfVaults)
-      ]
+        ethereum.Value.fromUnsignedBigInt(numOfVaults),
+      ],
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -219,8 +219,8 @@ export class Factory extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(
       new Factory__getVaultsResult(
         value[0].toAddressArray(),
-        value[1].toBigInt()
-      )
+        value[1].toBigInt(),
+      ),
     );
   }
 
@@ -243,7 +243,7 @@ export class Factory extends ethereum.SmartContract {
     let result = super.call(
       "vaultAddresses",
       "vaultAddresses(address):(address)",
-      [ethereum.Value.fromAddress(param0)]
+      [ethereum.Value.fromAddress(param0)],
     );
 
     return result[0].toAddress();
@@ -253,7 +253,7 @@ export class Factory extends ethereum.SmartContract {
     let result = super.tryCall(
       "vaultAddresses",
       "vaultAddresses(address):(address)",
-      [ethereum.Value.fromAddress(param0)]
+      [ethereum.Value.fromAddress(param0)],
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -266,7 +266,7 @@ export class Factory extends ethereum.SmartContract {
     let result = super.call(
       "vaultImplementation",
       "vaultImplementation():(address)",
-      []
+      [],
     );
 
     return result[0].toAddress();
@@ -276,7 +276,7 @@ export class Factory extends ethereum.SmartContract {
     let result = super.tryCall(
       "vaultImplementation",
       "vaultImplementation():(address)",
-      []
+      [],
     );
     if (result.reverted) {
       return new ethereum.CallResult();
