@@ -118,7 +118,7 @@ type SafeDeposit @entity(immutable: true) {
     from: Bytes
 }
 
-type SafeWithdraw @entity(immutable: true) {
+type SafeWithdrawal @entity(immutable: true) {
     id: ID!
     collection: Bytes!
     tokenId: BigInt!
@@ -139,16 +139,22 @@ type SafeExpiredBought @entity(immutable: true) {
     to: Bytes!
 }
 
-type SafeUnderlying @entity {
+type SafeUnderlyingNFT @entity {
     id: ID!
     collection: Bytes!
     tokenId: BigInt!
     expiration: BigInt!
-    sender: Bytes!
+    owner: Bytes!
+    withdrawn: Boolean!
+}
+
+type SafeNFT @entity {
+    id: ID!
     safe: SafeContract!
+    underlying: SafeUnderlyingNFT
 }
 
 type SafeContract @entity {
     id: ID!
-    nfts: [SafeUnderlying!] @derivedFrom(field: "safe")
+    safeNFT: [SafeNFT!] @derivedFrom(field: "safe")
 }

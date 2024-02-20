@@ -75,16 +75,20 @@ export class Burn__Params {
     this._event = event;
   }
 
-  get collection(): Address {
-    return this._event.parameters[0].value.toAddress();
+  get id(): BigInt {
+    return this._event.parameters[0].value.toBigInt();
   }
 
-  get id(): BigInt {
-    return this._event.parameters[1].value.toBigInt();
+  get collection(): Address {
+    return this._event.parameters[1].value.toAddress();
+  }
+
+  get tokenId(): BigInt {
+    return this._event.parameters[2].value.toBigInt();
   }
 
   get to(): Address {
-    return this._event.parameters[2].value.toAddress();
+    return this._event.parameters[3].value.toAddress();
   }
 }
 
@@ -135,16 +139,20 @@ export class ExpiredBought__Params {
     this._event = event;
   }
 
-  get collection(): Address {
-    return this._event.parameters[0].value.toAddress();
+  get id(): BigInt {
+    return this._event.parameters[0].value.toBigInt();
   }
 
-  get id(): BigInt {
-    return this._event.parameters[1].value.toBigInt();
+  get collection(): Address {
+    return this._event.parameters[1].value.toAddress();
+  }
+
+  get tokenId(): BigInt {
+    return this._event.parameters[2].value.toBigInt();
   }
 
   get to(): Address {
-    return this._event.parameters[2].value.toAddress();
+    return this._event.parameters[3].value.toAddress();
   }
 }
 
@@ -187,16 +195,20 @@ export class Withdraw__Params {
     this._event = event;
   }
 
-  get collection(): Address {
-    return this._event.parameters[0].value.toAddress();
+  get id(): BigInt {
+    return this._event.parameters[0].value.toBigInt();
   }
 
-  get id(): BigInt {
-    return this._event.parameters[1].value.toBigInt();
+  get collection(): Address {
+    return this._event.parameters[1].value.toAddress();
+  }
+
+  get tokenId(): BigInt {
+    return this._event.parameters[2].value.toBigInt();
   }
 
   get to(): Address {
-    return this._event.parameters[2].value.toAddress();
+    return this._event.parameters[3].value.toAddress();
   }
 }
 

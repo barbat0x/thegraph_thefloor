@@ -104,6 +104,12 @@
     "inputs": [
       {
         "indexed": true,
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
         "internalType": "address",
         "name": "collection",
         "type": "address"
@@ -111,7 +117,7 @@
       {
         "indexed": true,
         "internalType": "uint256",
-        "name": "id",
+        "name": "tokenId",
         "type": "uint256"
       },
       {
@@ -166,6 +172,12 @@
     "inputs": [
       {
         "indexed": true,
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
         "internalType": "address",
         "name": "collection",
         "type": "address"
@@ -173,7 +185,7 @@
       {
         "indexed": true,
         "internalType": "uint256",
-        "name": "id",
+        "name": "tokenId",
         "type": "uint256"
       },
       {
@@ -216,6 +228,12 @@
     "inputs": [
       {
         "indexed": true,
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
         "internalType": "address",
         "name": "collection",
         "type": "address"
@@ -223,7 +241,7 @@
       {
         "indexed": true,
         "internalType": "uint256",
-        "name": "id",
+        "name": "tokenId",
         "type": "uint256"
       },
       {

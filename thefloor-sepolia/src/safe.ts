@@ -1,18 +1,20 @@
-import { BigInt, store } from '@graphprotocol/graph-ts'
+import { Address, BigInt, store } from '@graphprotocol/graph-ts'
 import {
     Safe,
     Burn,
     Deposit,
     ExpiredBought,
     Withdraw,
+    Transfer,
 } from '../generated/Safe/Safe'
 import {
     SafeDeposit,
-    SafeWithdraw,
-    SafeUnderlying,
+    SafeWithdrawal,
+    SafeNFT,
     SafeBurn,
     SafeContract,
     SafeExpiredBought,
+    SafeUnderlyingNFT,
 } from '../generated/schema'
 
 export function handleSafeBurn(event: Burn): void {
@@ -20,14 +22,16 @@ export function handleSafeBurn(event: Burn): void {
         event.transaction.hash.toHex() + '-' + event.logIndex.toString()
     )
     entity.collection = event.params.collection
-    entity.tokenId = event.params.id
+    entity.tokenId = event.params.tokenId
     entity.to = event.params.to
     entity.save()
 
     store.remove(
-        'SafeUnderlying',
-        event.params.collection.toHex() + '-' + event.params.id.toString()
+        'SafeNFT',
+        event.params.collection.toHex() + '-' + event.params.tokenId.toString()
     )
+
+    store.remove('SafeUnderlyingNFT', event.params.id.toString())
 }
 
 export function handleSafeDeposit(event: Deposit): void {
@@ -47,23 +51,44 @@ export function handleSafeDeposit(event: Deposit): void {
         safe.save()
     }
 
-    let underlying = SafeUnderlying.load(
+    let underlying = new SafeUnderlyingNFT(event.params.id.toString())
+    underlying.collection = event.params.collection
+    underlying.tokenId = event.params.tokenId
+    underlying.expiration = event.params.expiration
+    underlying.owner = event.params.to
+    underlying.withdrawn = false
+    underlying.save()
+
+    let nft = SafeNFT.load(
         event.params.collection.toHex() + '-' + event.params.tokenId.toString()
     )
 
-    if (!underlying) {
-        underlying = new SafeUnderlying(
+    if (!nft) {
+        nft = new SafeNFT(
             event.params.collection.toHex() +
                 '-' +
                 event.params.tokenId.toString()
         )
-        underlying.collection = event.params.collection
-        underlying.tokenId = event.params.tokenId
-        underlying.expiration = event.params.expiration
-        underlying.sender = event.params.to
-        underlying.safe = event.address.toHex()
-        underlying.save()
+        nft.safe = event.address.toHex()
+        nft.underlying = underlying.id
+        nft.save()
     }
+}
+
+export function handleSafeWithdraw(event: Withdraw): void {
+    let entity = new SafeWithdrawal(
+        event.transaction.hash.toHex() + '-' + event.logIndex.toString()
+    )
+    entity.collection = event.params.collection
+    entity.tokenId = event.params.tokenId
+    entity.to = event.params.to
+    entity.save()
+
+    store.remove(
+        'SafeNFT',
+        event.params.collection.toHex() + '-' + event.params.tokenId.toString()
+    )
+    store.remove('SafeUnderlyingNFT', event.params.id.toString())
 }
 
 export function handleExpiredBought(event: ExpiredBought): void {
@@ -71,27 +96,41 @@ export function handleExpiredBought(event: ExpiredBought): void {
         event.transaction.hash.toHex() + '-' + event.logIndex.toString()
     )
     entity.collection = event.params.collection
-    entity.tokenId = event.params.id
+    entity.tokenId = event.params.tokenId
     entity.to = event.params.to
     entity.save()
 
     store.remove(
-        'SafeUnderlying',
-        event.params.collection.toHex() + '-' + event.params.id.toString()
+        'SafeNFT',
+        event.params.collection.toHex() + '-' + event.params.tokenId.toString()
     )
+
+    let safeUnderlying = SafeUnderlyingNFT.load(event.params.id.toString())
+
+    if (safeUnderlying) {
+        safeUnderlying.withdrawn = true
+        safeUnderlying.save()
+    }
 }
 
-export function handleSafeWithdraw(event: Withdraw): void {
-    let entity = new SafeWithdraw(
-        event.transaction.hash.toHex() + '-' + event.logIndex.toString()
-    )
-    entity.collection = event.params.collection
-    entity.tokenId = event.params.id
-    entity.to = event.params.to
-    entity.save()
+export function handleTransfer(event: Transfer): void {
+    let fromAddress = event.params.from
+    let toAddress = event.params.to
 
-    store.remove(
-        'SafeUnderlying',
-        event.params.collection.toHex() + '-' + event.params.id.toString()
-    )
+    // Mint && Burn already handled by the Safe events
+    if (
+        fromAddress.equals(Address.zero()) ||
+        toAddress.equals(Address.zero())
+    ) {
+        return
+    }
+
+    let entity = SafeUnderlyingNFT.load(event.params.tokenId.toString())
+
+    if (entity) {
+        if (entity.owner == fromAddress) {
+            entity.owner = toAddress
+            entity.save()
+        }
+    }
 }

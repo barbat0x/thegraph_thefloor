@@ -7,7 +7,7 @@ dataSources:
     name: Factory
     network: sepolia
     source:
-      address: "0xC18703d30CE64f7eF9F538b367a58DBC259a5671"
+      address: "0x1f16eCC3B46Af7AEe8ABCDa7d959DBD2e81a77ba"
       abi: Factory
       startBlock: 5303280
     mapping:
@@ -27,7 +27,7 @@ dataSources:
     name: Safe
     network: sepolia
     source:
-      address: "0x5e31Ce1E60439Cf4fd5E54a3702d7aAeA4302dd5"
+      address: "0x5b180933bBfCD40484110844aed4dB677aD715ab"
       abi: Safe
       startBlock: 5303280
     mapping:
@@ -38,20 +38,23 @@ dataSources:
         - SafeBurn
         - SafeDeposit
         - SafeExpiredBought
-        - SafeWithdraw
+        - SafeWithdrawal
         - SafeContract
+        - SafeUnderlyingNFT
       abis:
         - name: Safe
           file: Safe/abis/Safe.json
       eventHandlers:
-        - event: Burn(indexed address,indexed uint256,address)
+        - event: Burn(indexed uint256,indexed address,indexed uint256,address)
           handler: handleSafeBurn
         - event: Deposit(indexed uint256,indexed address,indexed uint256,uint256,address)
           handler: handleSafeDeposit
-        - event: ExpiredBought(indexed address,indexed uint256,address)
+        - event: ExpiredBought(indexed uint256,indexed address,indexed uint256,address)
           handler: handleExpiredBought
-        - event: Withdraw(indexed address,indexed uint256,address)
+        - event: Withdraw(indexed uint256,indexed address,indexed uint256,address)
           handler: handleSafeWithdraw
+        - event: Transfer(indexed address,indexed address,indexed uint256)
+          handler: handleTransfer
       file: Safe/Safe.wasm
 templates:
   - kind: ethereum/contract

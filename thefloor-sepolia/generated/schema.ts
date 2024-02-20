@@ -1413,7 +1413,7 @@ export class SafeDeposit extends Entity {
   }
 }
 
-export class SafeWithdraw extends Entity {
+export class SafeWithdrawal extends Entity {
   constructor(id: string) {
     super();
     this.set("id", Value.fromString(id));
@@ -1421,24 +1421,24 @@ export class SafeWithdraw extends Entity {
 
   save(): void {
     let id = this.get("id");
-    assert(id != null, "Cannot save SafeWithdraw entity without an ID");
+    assert(id != null, "Cannot save SafeWithdrawal entity without an ID");
     if (id) {
       assert(
         id.kind == ValueKind.STRING,
-        `Entities of type SafeWithdraw must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`,
+        `Entities of type SafeWithdrawal must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`,
       );
-      store.set("SafeWithdraw", id.toString(), this);
+      store.set("SafeWithdrawal", id.toString(), this);
     }
   }
 
-  static loadInBlock(id: string): SafeWithdraw | null {
-    return changetype<SafeWithdraw | null>(
-      store.get_in_block("SafeWithdraw", id),
+  static loadInBlock(id: string): SafeWithdrawal | null {
+    return changetype<SafeWithdrawal | null>(
+      store.get_in_block("SafeWithdrawal", id),
     );
   }
 
-  static load(id: string): SafeWithdraw | null {
-    return changetype<SafeWithdraw | null>(store.get("SafeWithdraw", id));
+  static load(id: string): SafeWithdrawal | null {
+    return changetype<SafeWithdrawal | null>(store.get("SafeWithdrawal", id));
   }
 
   get id(): string {
@@ -1656,7 +1656,7 @@ export class SafeExpiredBought extends Entity {
   }
 }
 
-export class SafeUnderlying extends Entity {
+export class SafeUnderlyingNFT extends Entity {
   constructor(id: string) {
     super();
     this.set("id", Value.fromString(id));
@@ -1664,24 +1664,26 @@ export class SafeUnderlying extends Entity {
 
   save(): void {
     let id = this.get("id");
-    assert(id != null, "Cannot save SafeUnderlying entity without an ID");
+    assert(id != null, "Cannot save SafeUnderlyingNFT entity without an ID");
     if (id) {
       assert(
         id.kind == ValueKind.STRING,
-        `Entities of type SafeUnderlying must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`,
+        `Entities of type SafeUnderlyingNFT must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`,
       );
-      store.set("SafeUnderlying", id.toString(), this);
+      store.set("SafeUnderlyingNFT", id.toString(), this);
     }
   }
 
-  static loadInBlock(id: string): SafeUnderlying | null {
-    return changetype<SafeUnderlying | null>(
-      store.get_in_block("SafeUnderlying", id),
+  static loadInBlock(id: string): SafeUnderlyingNFT | null {
+    return changetype<SafeUnderlyingNFT | null>(
+      store.get_in_block("SafeUnderlyingNFT", id),
     );
   }
 
-  static load(id: string): SafeUnderlying | null {
-    return changetype<SafeUnderlying | null>(store.get("SafeUnderlying", id));
+  static load(id: string): SafeUnderlyingNFT | null {
+    return changetype<SafeUnderlyingNFT | null>(
+      store.get("SafeUnderlyingNFT", id),
+    );
   }
 
   get id(): string {
@@ -1736,8 +1738,8 @@ export class SafeUnderlying extends Entity {
     this.set("expiration", Value.fromBigInt(value));
   }
 
-  get sender(): Bytes {
-    let value = this.get("sender");
+  get owner(): Bytes {
+    let value = this.get("owner");
     if (!value || value.kind == ValueKind.NULL) {
       throw new Error("Cannot return null for a required field.");
     } else {
@@ -1745,8 +1747,61 @@ export class SafeUnderlying extends Entity {
     }
   }
 
-  set sender(value: Bytes) {
-    this.set("sender", Value.fromBytes(value));
+  set owner(value: Bytes) {
+    this.set("owner", Value.fromBytes(value));
+  }
+
+  get withdrawn(): boolean {
+    let value = this.get("withdrawn");
+    if (!value || value.kind == ValueKind.NULL) {
+      return false;
+    } else {
+      return value.toBoolean();
+    }
+  }
+
+  set withdrawn(value: boolean) {
+    this.set("withdrawn", Value.fromBoolean(value));
+  }
+}
+
+export class SafeNFT extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id != null, "Cannot save SafeNFT entity without an ID");
+    if (id) {
+      assert(
+        id.kind == ValueKind.STRING,
+        `Entities of type SafeNFT must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`,
+      );
+      store.set("SafeNFT", id.toString(), this);
+    }
+  }
+
+  static loadInBlock(id: string): SafeNFT | null {
+    return changetype<SafeNFT | null>(store.get_in_block("SafeNFT", id));
+  }
+
+  static load(id: string): SafeNFT | null {
+    return changetype<SafeNFT | null>(store.get("SafeNFT", id));
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toString();
+    }
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
   }
 
   get safe(): string {
@@ -1760,6 +1815,23 @@ export class SafeUnderlying extends Entity {
 
   set safe(value: string) {
     this.set("safe", Value.fromString(value));
+  }
+
+  get underlying(): string | null {
+    let value = this.get("underlying");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set underlying(value: string | null) {
+    if (!value) {
+      this.unset("underlying");
+    } else {
+      this.set("underlying", Value.fromString(<string>value));
+    }
   }
 }
 
@@ -1804,11 +1876,11 @@ export class SafeContract extends Entity {
     this.set("id", Value.fromString(value));
   }
 
-  get nfts(): SafeUnderlyingLoader {
-    return new SafeUnderlyingLoader(
+  get safeNFT(): SafeNFTLoader {
+    return new SafeNFTLoader(
       "SafeContract",
       this.get("id")!.toString(),
-      "nfts",
+      "safeNFT",
     );
   }
 }
@@ -1849,7 +1921,7 @@ export class VaultERC20Loader extends Entity {
   }
 }
 
-export class SafeUnderlyingLoader extends Entity {
+export class SafeNFTLoader extends Entity {
   _entity: string;
   _field: string;
   _id: string;
@@ -1861,8 +1933,8 @@ export class SafeUnderlyingLoader extends Entity {
     this._field = field;
   }
 
-  load(): SafeUnderlying[] {
+  load(): SafeNFT[] {
     let value = store.loadRelated(this._entity, this._id, this._field);
-    return changetype<SafeUnderlying[]>(value);
+    return changetype<SafeNFT[]>(value);
   }
 }
